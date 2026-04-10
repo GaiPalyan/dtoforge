@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator;
+namespace Forge\Dto;
 
 use Illuminate\Support\ServiceProvider;
 

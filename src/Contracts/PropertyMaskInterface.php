@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Contracts;
+namespace Forge\Dto\Contracts;
 
 interface PropertyMaskInterface
 {

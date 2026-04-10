@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Support\Validation;
+namespace Forge\Dto\Support\Validation;
 
 use Attribute;
 use Illuminate\Support\Arr;
-use Ru\One2Work\Php\DtoValidator\BaseDto;
-use Ru\One2Work\Php\DtoValidator\Contracts\ClassValidatorInterface;
-use Ru\One2Work\Php\DtoValidator\Support\Validation\Traits\HasLaravelValidation;
+use Forge\Dto\BaseDto;
+use Forge\Dto\Contracts\ClassValidatorInterface;
+use Forge\Dto\Support\Validation\Traits\HasLaravelValidation;
 
 #[Attribute(Attribute::TARGET_CLASS)]
 readonly class AtLeastOne implements ClassValidatorInterface

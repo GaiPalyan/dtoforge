@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Support\Validation;
+namespace Forge\Dto\Support\Validation;
 
 use Attribute;
-use Ru\One2Work\Php\DtoValidator\Contracts\PropertyValidatorInterface;
-use Ru\One2Work\Php\DtoValidator\Support\Validation\Traits\HasLaravelValidation;
+use Forge\Dto\Contracts\PropertyValidatorInterface;
+use Forge\Dto\Support\Validation\Traits\HasLaravelValidation;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
 readonly class Required implements PropertyValidatorInterface
@@ -16,7 +16,7 @@ readonly class Required implements PropertyValidatorInterface
     public function __construct() {}
 
     /**
-     * Валидация обязательного значения
+     * Validates that the value is not empty
      */
     public function validate(mixed $value, string $propertyName): void
     {

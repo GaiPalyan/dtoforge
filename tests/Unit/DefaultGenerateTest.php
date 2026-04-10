@@ -18,14 +18,12 @@ describe('DtoBuilding', function () {
         $dto = new GenerateDefaultDto(['value' => 'already set']);
         $dto->generateDefaultsIfAllowed();
 
-        // Значение не изменилось
         expect($dto->getValue())->toBe('already set');
     });
 
     it('does not change value if generateDefaultsIfAllowed is not called', function () {
         $dto = new GenerateDefaultDto(['value' => null]);
 
-        // Метод generateDefaultsIfAllowed не вызываем
         expect($dto->getValue())->toBeNull();
     });
 })->group('DefaultGenerate');

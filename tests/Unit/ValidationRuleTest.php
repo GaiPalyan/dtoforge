@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Ru\One2Work\Php\DtoValidator\Exceptions\DtoValidationException;
+use Forge\Dto\Exceptions\DtoValidationException;
 use Tests\Stubs\Validation\Simple\ArrayOf;
 use Tests\Stubs\Validation\Simple\AtLeastOne;
 use Tests\Stubs\Validation\Simple\Required;
