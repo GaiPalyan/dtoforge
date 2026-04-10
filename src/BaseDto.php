@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator;
+namespace Forge\Dto;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use InvalidArgumentException;
-use Ru\One2Work\Php\DtoValidator\Exceptions\DtoValidationException;
-use Ru\One2Work\Php\DtoValidator\Exceptions\UnknownPropertyException;
-use Ru\One2Work\Php\DtoValidator\Internal\Caster;
-use Ru\One2Work\Php\DtoValidator\Internal\Metadata;
-use Ru\One2Work\Php\DtoValidator\Internal\Serializer;
-use Ru\One2Work\Php\DtoValidator\Internal\Validator;
-use Ru\One2Work\Php\DtoValidator\Support\Violation;
+use Forge\Dto\Exceptions\DtoValidationException;
+use Forge\Dto\Exceptions\UnknownPropertyException;
+use Forge\Dto\Internal\Caster;
+use Forge\Dto\Internal\Metadata;
+use Forge\Dto\Internal\Serializer;
+use Forge\Dto\Internal\Validator;
+use Forge\Dto\Support\Violation;
 
 /**
  * Base Data Transfer Object with automatic type casting and validation.

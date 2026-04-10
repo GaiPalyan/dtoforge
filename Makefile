@@ -5,7 +5,7 @@ GID = $(shell id -g)
 export UID
 export GID
 
-# Цвета для вывода
+# Output colors
 GREEN = \033[0;32m
 YELLOW = \033[0;33m
 RED = \033[0;31m
@@ -20,29 +20,29 @@ build:
 install:
 	docker run --rm -it \
 	  -v $(PWD):/app \
-	  $(IMAGE) composer install
+	  $(IMAGE) composer dump-autoload
 
 update:
 	docker run --rm -it \
 	  -v $(PWD):/app \
 	  $(IMAGE) composer update
 
-# Известные группы
+# Known test groups
 KNOWN_GROUPS=Validate Build DefaultGenerate
 test-groups:
-	@echo "$(GREEN)Доступные группы тестов:$(NC)"
+	@echo "$(GREEN)Available test groups:$(NC)"
 	@for group in $(KNOWN_GROUPS); do echo "  - $$group"; done
 
 test:
-	@echo "$(GREEN)Запуск всех тестов...$(NC)"
+	@echo "$(GREEN)Running all tests...$(NC)"
 	docker run --rm -it -v $(PWD):/app $(IMAGE) ./vendor/bin/pest
 
-test-%: ## Запустить тесты переданной группы
+test-%: ## Run tests for the specified group
 	@if echo "$(KNOWN_GROUPS)" | grep -wq "$*"; then \
-		echo "$(GREEN)Запуск тестов группы '$*'...$(NC)"; \
+		echo "$(GREEN)Running tests for group '$*'...$(NC)"; \
 		docker run --rm -it -v $(PWD):/app $(IMAGE) ./vendor/bin/pest --group=$*; \
 	else \
-		echo "$(RED)Неизвестная группа '$*'.$(NC)"; \
+		echo "$(RED)Unknown group '$*'.$(NC)"; \
 		$(MAKE) test-groups; \
 		exit 1; \
 	fi

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Stubs;
 
-use Ru\One2Work\Php\DtoValidator\BaseDto;
+use Forge\Dto\BaseDto;
 
 /**
  * @method SimpleDto|null getChildren()

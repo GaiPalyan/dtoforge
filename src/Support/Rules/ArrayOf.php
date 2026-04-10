@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Support\Rules;
+namespace Forge\Dto\Support\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;

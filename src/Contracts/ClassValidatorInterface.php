@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Contracts;
+namespace Forge\Dto\Contracts;
 
-use Ru\One2Work\Php\DtoValidator\BaseDto;
-use Ru\One2Work\Php\DtoValidator\Exceptions\DtoValidationException;
+use Forge\Dto\BaseDto;
+use Forge\Dto\Exceptions\DtoValidationException;
 
 interface ClassValidatorInterface
 {

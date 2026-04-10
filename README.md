@@ -27,7 +27,7 @@ composer require gpalyan/dto-forge
 All DTOs must extend `BaseDto`:
 
 ```php
-use Ru\One2Work\Php\DtoValidator\Support\BaseDto;
+use Forge\Dto\Support\BaseDto;
 
 final class SimpleDto extends BaseDto
 {
@@ -198,10 +198,10 @@ Validation is applied via PHP attributes on DTO properties.
 ### Using Built-in Validators
 
 ```php
-use Ru\One2Work\Php\DtoValidator\Support\BaseDto;
-use Ru\One2Work\Php\DtoValidator\Support\Validation\Uuid;
-use Ru\One2Work\Php\DtoValidator\Support\Validation\Required;
-use Ru\One2Work\Php\DtoValidator\Support\Validation\Inn;
+use Forge\Dto\Support\BaseDto;
+use Forge\Dto\Support\Validation\Uuid;
+use Forge\Dto\Support\Validation\Required;
+use Forge\Dto\Support\Validation\Inn;
 
 final class UserDto extends BaseDto
 {
@@ -248,8 +248,8 @@ Implement `PropertyValidatorInterface` to create your own validators:
 
 ```php
 use Attribute;
-use Ru\One2Work\Php\DtoValidator\Contracts\PropertyValidatorInterface;
-use Ru\One2Work\Php\DtoValidator\Support\Validation\Traits\HasLaravelValidation;
+use Forge\Dto\Contracts\PropertyValidatorInterface;
+use Forge\Dto\Support\Validation\Traits\HasLaravelValidation;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
 readonly class Email implements PropertyValidatorInterface
@@ -289,8 +289,8 @@ Implement `DefaultValueGeneratorInterface` to create your own generators:
 
 ```php
 use Attribute;
-use Ru\One2Work\Php\DtoValidator\Contracts\DefaultValueGeneratorInterface;
-use Ru\One2Work\Php\DtoValidator\Support\BaseDto;
+use Forge\Dto\Contracts\DefaultValueGeneratorInterface;
+use Forge\Dto\Support\BaseDto;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
 class UuidGenerator implements DefaultValueGeneratorInterface

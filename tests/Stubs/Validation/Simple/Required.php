@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Stubs\Validation\Simple;
 
-use Ru\One2Work\Php\DtoValidator\BaseDto;
-use Ru\One2Work\Php\DtoValidator\Support\Validation\Required as RequiredValidator;
+use Forge\Dto\BaseDto;
+use Forge\Dto\Support\Validation\Required as RequiredValidator;
 
 /**
  * @method self setValue(mixed $value)

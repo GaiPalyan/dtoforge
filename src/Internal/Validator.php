@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Internal;
+namespace Forge\Dto\Internal;
 
-use Ru\One2Work\Php\DtoValidator\BaseDto;
-use Ru\One2Work\Php\DtoValidator\Contracts\ClassValidatorInterface;
-use Ru\One2Work\Php\DtoValidator\Contracts\PropertyValidatorInterface;
-use Ru\One2Work\Php\DtoValidator\Exceptions\DtoValidationException;
-use Ru\One2Work\Php\DtoValidator\Support\Violation;
+use Forge\Dto\BaseDto;
+use Forge\Dto\Contracts\ClassValidatorInterface;
+use Forge\Dto\Contracts\PropertyValidatorInterface;
+use Forge\Dto\Exceptions\DtoValidationException;
+use Forge\Dto\Support\Violation;
 
 final class Validator
 {

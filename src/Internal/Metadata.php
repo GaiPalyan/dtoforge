@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Internal;
+namespace Forge\Dto\Internal;
 
 use ReflectionNamedType;
 use ReflectionProperty;
-use Ru\One2Work\Php\DtoValidator\Contracts\ClassValidatorInterface;
-use Ru\One2Work\Php\DtoValidator\Contracts\DefaultValueGeneratorInterface;
-use Ru\One2Work\Php\DtoValidator\Contracts\PropertyMaskInterface;
-use Ru\One2Work\Php\DtoValidator\Contracts\PropertyValidatorInterface;
+use Forge\Dto\Contracts\ClassValidatorInterface;
+use Forge\Dto\Contracts\DefaultValueGeneratorInterface;
+use Forge\Dto\Contracts\PropertyMaskInterface;
+use Forge\Dto\Contracts\PropertyValidatorInterface;
 
 final class Metadata
 {

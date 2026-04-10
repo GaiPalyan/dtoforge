@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Exceptions;
+namespace Forge\Dto\Exceptions;
 
 class UnknownPropertyException extends \InvalidArgumentException {}

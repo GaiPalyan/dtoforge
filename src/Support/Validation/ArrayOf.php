@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Support\Validation;
+namespace Forge\Dto\Support\Validation;
 
 // Example:
 // class ProductDto extends BaseDto
@@ -11,9 +11,9 @@ namespace Ru\One2Work\Php\DtoValidator\Support\Validation;
 //    public array|null $prices = null;
 // }
 use Attribute;
-use Ru\One2Work\Php\DtoValidator\Contracts\PropertyValidatorInterface;
-use Ru\One2Work\Php\DtoValidator\Support\Rules\ArrayOf as ArrayOfRule;
-use Ru\One2Work\Php\DtoValidator\Support\Validation\Traits\HasLaravelValidation;
+use Forge\Dto\Contracts\PropertyValidatorInterface;
+use Forge\Dto\Support\Rules\ArrayOf as ArrayOfRule;
+use Forge\Dto\Support\Validation\Traits\HasLaravelValidation;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
 readonly class ArrayOf implements PropertyValidatorInterface

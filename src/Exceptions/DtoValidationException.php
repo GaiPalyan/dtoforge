@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Exceptions;
+namespace Forge\Dto\Exceptions;
 
-use Ru\One2Work\Php\DtoValidator\Support\Violation;
+use Forge\Dto\Support\Violation;
 
 class DtoValidationException extends \RuntimeException
 {

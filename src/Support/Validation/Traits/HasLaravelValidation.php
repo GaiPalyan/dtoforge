@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Support\Validation\Traits;
+namespace Forge\Dto\Support\Validation\Traits;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
-use Ru\One2Work\Php\DtoValidator\Exceptions\DtoValidationException;
-use Ru\One2Work\Php\DtoValidator\Support\Violation;
+use Forge\Dto\Exceptions\DtoValidationException;
+use Forge\Dto\Support\Violation;
 
 trait HasLaravelValidation
 {

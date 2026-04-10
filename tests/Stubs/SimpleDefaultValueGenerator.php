@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Stubs;
 
 use Attribute;
-use Ru\One2Work\Php\DtoValidator\BaseDto;
-use Ru\One2Work\Php\DtoValidator\Contracts\DefaultValueGeneratorInterface;
+use Forge\Dto\BaseDto;
+use Forge\Dto\Contracts\DefaultValueGeneratorInterface;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
 class SimpleDefaultValueGenerator implements DefaultValueGeneratorInterface

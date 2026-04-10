@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Internal;
+namespace Forge\Dto\Internal;
 
 use DateTimeInterface;
-use Ru\One2Work\Php\DtoValidator\BaseDto;
+use Forge\Dto\BaseDto;
 
 final class Serializer
 {

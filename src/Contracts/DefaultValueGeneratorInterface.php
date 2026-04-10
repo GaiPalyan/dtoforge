@@ -2,29 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Ru\One2Work\Php\DtoValidator\Contracts;
+namespace Forge\Dto\Contracts;
 
-use Ru\One2Work\Php\DtoValidator\BaseDto;
+use Forge\Dto\BaseDto;
 
 /**
- * Интерфейс генераторов значений по умолчанию для DTO-свойств.
+ * Interface for default value generators for DTO properties.
  *
- * Генераторы реализуют логику, по которой свойство DTO может быть автоматически заполнено,
- * если оно не задано явно, опирается на политику метода supports().
- *
- * Example
- *
- * ```php
- * $dto = new RowImportCivilLawContractDto([
- *     'contractNumber' => 'ГПХ-123',
- *     'contractDate' => '2025-06-13',
- * ]);
- *
- * $dto->generateDefaultProperty('paymentPurpose');
- *
- * echo $dto->getPaymentPurpose();
- * // result: "Оплата по договору №ГПХ-123 от 13.06.2025. Без НДС."
- * ```
+ * Generators define the logic by which a DTO property can be automatically filled
+ * when not explicitly set, based on the policy defined in the supports() method.
  */
 interface DefaultValueGeneratorInterface
 {
