@@ -1,9 +1,4 @@
 <?php
-/*
- * Copyright 2021-2026 DATOP (ALTESSA SOLUTIONS) LLC. All rights reserved.
- * Use of this source code is governed by license that can be found in
- * the LICENSE file.
- */
 
 declare(strict_types=1);
 
@@ -22,12 +17,12 @@ final class Metadata
     private static array $cache = [];
 
     /**
-     * @param array<string, string> $propertyTypes
-     * @param array<string, list<PropertyValidatorInterface>> $propertyValidator
-     * @param array<string, PropertyMaskInterface> $propertyMask
-     * @param array<string, DefaultValueGeneratorInterface> $defaultValueGenerators
-     * @param array<string, string|null> $arrayItemTypes
-     * @param list<ClassValidatorInterface> $classValidator
+     * @param  array<string, string>  $propertyTypes
+     * @param  array<string, list<PropertyValidatorInterface>>  $propertyValidator
+     * @param  array<string, PropertyMaskInterface>  $propertyMask
+     * @param  array<string, DefaultValueGeneratorInterface>  $defaultValueGenerators
+     * @param  array<string, string|null>  $arrayItemTypes
+     * @param  list<ClassValidatorInterface>  $classValidator
      */
     private function __construct(
         public readonly array $propertyTypes,

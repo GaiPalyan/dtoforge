@@ -1,9 +1,4 @@
 <?php
-/*
- * Copyright 2021-2026 DATOP (ALTESSA SOLUTIONS) LLC. All rights reserved.
- * Use of this source code is governed by license that can be found in
- * the LICENSE file.
- */
 
 declare(strict_types=1);
 
@@ -19,7 +14,7 @@ trait HasLaravelValidation
     /**
      * Perform validation using Laravel validator
      *
-     * @param list<string|object> $rules
+     * @param  list<string|object>  $rules
      * @throws DtoValidationException
      */
     protected function performValidation(
@@ -73,7 +68,7 @@ trait HasLaravelValidation
     }
 
     /**
-     * @param array<string, array<string, array<mixed>>> $rules
+     * @param  array<string, array<string, array<mixed>>>  $rules
      * @return Violation[]
      */
     private function makeViolations(MessageBag $errors, array $rules, ?string $message = ''): array

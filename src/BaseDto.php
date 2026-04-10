@@ -1,9 +1,4 @@
 <?php
-/*
- * Copyright 2021-2026 DATOP (ALTESSA SOLUTIONS) LLC. All rights reserved.
- * Use of this source code is governed by license that can be found in
- * the LICENSE file.
- */
 
 declare(strict_types=1);
 
@@ -77,13 +72,11 @@ abstract class BaseDto implements Arrayable, Jsonable
         return $this->serializer->toJson($this, $options, $clearing, $masking);
     }
 
-    /** @return static */
     public function clone(): static
     {
         return new static($this->toArray());
     }
 
-    /** @return static */
     public function merge(self $dto): static
     {
         $new = $this->clone();

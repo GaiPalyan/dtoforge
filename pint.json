@@ -29,12 +29,6 @@
         },
         "binary_operator_spaces": {
             "default": "single_space"
-        },
-        "header_comment": {
-            "header": "Copyright 2021-2026 DATOP (ALTESSA SOLUTIONS) LLC. All rights reserved.\nUse of this source code is governed by license that can be found in\nthe LICENSE file.",
-            "comment_type": "comment",
-            "location": "after_open",
-            "separate": "bottom"
         }
     }
 }
