@@ -1,9 +1,4 @@
 <?php
-/*
- * Copyright 2021-2026 DATOP (ALTESSA SOLUTIONS) LLC. All rights reserved.
- * Use of this source code is governed by license that can be found in
- * the LICENSE file.
- */
 
 declare(strict_types=1);
 
@@ -20,6 +15,7 @@ readonly class AtLeastOne implements ClassValidatorInterface
 {
     use HasLaravelValidation;
 
+    /** @param list<string> $atLeastOneRequired */
     public function __construct(public array $atLeastOneRequired) {}
 
     public function validate(BaseDto $dto): void

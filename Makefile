@@ -52,3 +52,6 @@ shell:
 
 pint:
 	docker run --rm -it -v $(PWD):/app $(IMAGE) ./vendor/bin/pint
+
+stan:
+	docker run --rm -it -v $(PWD):/app $(IMAGE) ./vendor/bin/phpstan analyse --memory-limit=256M

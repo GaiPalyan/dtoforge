@@ -1,9 +1,4 @@
 <?php
-/*
- * Copyright 2021-2026 DATOP (ALTESSA SOLUTIONS) LLC. All rights reserved.
- * Use of this source code is governed by license that can be found in
- * the LICENSE file.
- */
 
 declare(strict_types=1);
 use Tests\TestCase;
@@ -32,8 +27,8 @@ pest()->extend(TestCase::class)->in('Unit');
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
+expect()->extend('toBeOne', function (): void {
+    $this->toBe(1); // @phpstan-ignore variable.undefined
 });
 
 /*
@@ -47,7 +42,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function something(): void
 {
     // ..
 }

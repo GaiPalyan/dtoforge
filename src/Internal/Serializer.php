@@ -1,9 +1,4 @@
 <?php
-/*
- * Copyright 2021-2026 DATOP (ALTESSA SOLUTIONS) LLC. All rights reserved.
- * Use of this source code is governed by license that can be found in
- * the LICENSE file.
- */
 
 declare(strict_types=1);
 
@@ -16,6 +11,7 @@ final class Serializer
 {
     public function __construct(private readonly Metadata $metadata) {}
 
+    /** @return array<string, mixed> */
     public function toArray(BaseDto $dto, bool $clearing = false, bool $masking = false): array
     {
         $result = [];
@@ -44,6 +40,7 @@ final class Serializer
         return $data ? json_encode($data, $options) ?: null : null;
     }
 
+    /** @return array<string, mixed> */
     private function getProperties(BaseDto $dto): array
     {
         return array_intersect_key(get_object_vars($dto), $this->metadata->propertyTypes);

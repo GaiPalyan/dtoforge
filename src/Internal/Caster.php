@@ -1,9 +1,4 @@
 <?php
-/*
- * Copyright 2021-2026 DATOP (ALTESSA SOLUTIONS) LLC. All rights reserved.
- * Use of this source code is governed by license that can be found in
- * the LICENSE file.
- */
 
 declare(strict_types=1);
 
@@ -76,6 +71,7 @@ final class Caster
         throw new InvalidArgumentException("Cannot cast value to {$className}");
     }
 
+    /** @return list<object> */
     private function castArrayOfObjects(mixed $value, string $className, bool $lazyValidation): array
     {
         if (! is_array($value)) {

@@ -1,5 +1,7 @@
 # PHP DTO Package
 
+[![Tests](https://github.com/gpalyan/dtoforge/actions/workflows/tests.yml/badge.svg)](https://github.com/gpalyan/dtoforge/actions/workflows/tests.yml)
+
 A flexible and powerful Data Transfer Object (DTO) library for PHP that provides validation, type casting, default value generation, and convenient data manipulation methods.
 
 ## Features
@@ -15,7 +17,7 @@ A flexible and powerful Data Transfer Object (DTO) library for PHP that provides
 ## Installation
 
 ```bash
-composer require o2w/dto-validator
+composer require gpalyan/dto-forge
 ```
 
 ## Basic Usage
