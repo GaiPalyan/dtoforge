@@ -1,0 +1,35 @@
+{
+  "name": "gpalyan/dto-forge",
+  "description": "Advanced DTO system with casting, validation, masks, nested DTOs",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Ru\\One2Work\\Php\\DtoValidator\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^8.4",
+    "illuminate/contracts": "^12.0 || ^13.0",
+    "illuminate/support": "^12.0 || ^13.0",
+    "ext-ctype": "*"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^7.2.0",
+    "pestphp/pest": "^3.7",
+    "orchestra/testbench": "^v10.0",
+    "laravel/pint": "^1.24"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true,
+      "pestphp/pest-plugin-arch": true,
+      "pestphp/pest-plugin-mutate": true
+    }
+  }
+}
