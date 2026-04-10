@@ -17,6 +17,7 @@ final readonly class Violation
         public string $rule,
     ) {}
 
+    /** @return array{field_path: string, message: string, rule: string} */
     public function toArray(): array
     {
         return [

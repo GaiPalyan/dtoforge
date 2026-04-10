@@ -11,6 +11,14 @@ namespace Tests\Stubs;
 
 use Ru\One2Work\Php\DtoValidator\BaseDto;
 
+/**
+ * @method string|null getName()
+ * @method string|null getAge()
+ * @method string|null getAddress()
+ * @method static setName(?string $name)
+ * @method static setAge(mixed $age)
+ * @method static setAddress(?string $address)
+ */
 final class SimpleDto extends BaseDto
 {
     public ?string $name = null;

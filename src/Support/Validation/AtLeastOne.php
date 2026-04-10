@@ -20,6 +20,7 @@ readonly class AtLeastOne implements ClassValidatorInterface
 {
     use HasLaravelValidation;
 
+    /** @param list<string> $atLeastOneRequired */
     public function __construct(public array $atLeastOneRequired) {}
 
     public function validate(BaseDto $dto): void

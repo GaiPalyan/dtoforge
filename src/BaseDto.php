@@ -18,77 +18,13 @@ use Ru\One2Work\Php\DtoValidator\Internal\Caster;
 use Ru\One2Work\Php\DtoValidator\Internal\Metadata;
 use Ru\One2Work\Php\DtoValidator\Internal\Serializer;
 use Ru\One2Work\Php\DtoValidator\Internal\Validator;
+use Ru\One2Work\Php\DtoValidator\Support\Violation;
 
 /**
- * Base Data Transfer Object class with automatic type casting and validation.
+ * Base Data Transfer Object with automatic type casting and validation.
  *
- * Features:
- * - Automatic type casting based on property types
- * - Support for nested DTOs
- * - Array of objects support via PHPDoc annotations
- * - DateTime handling
- * - JSON serialization/deserialization
- * - Immutable operations (clone, merge)
- * - Comparison utilities
- *
- * @template T of BaseDto
- * ## Usage Examples:
- *
- * ### Creating a DTO:
- * ```php
- * // From array
- * $dto = new UserDto([
- * 'name' => 'John',
- * 'createdAt' => '2023-01-01',
- * 'addresses' => [['city' => 'New York']],
- * ]);
- *
- * // From JSON
- * $dto = new UserDto($jsonString);
- * ```
- *
- * ### Accessing Data:
- * ```php
- * $name = $dto->getName();
- * $dto->setCreatedAt(new DateTime());
- * $hasDate = $dto->hasCreatedAt();
- * ```
- *
- * ### Modifying:
- * ```php
- * $newDto = $dto->clone()->setName('Jane');
- * ```
- *
- * ### Merging DTOs:
- * ```php
- * $dto1 = new UserDto(['name' => 'John', 'age' => 25]);
- * $dto2 = new UserDto(['name' => 'Jane', 'email' => 'jane@example.com']);
- * $merged = $dto1->merge($dto2);
- * // Result: ['name' => 'Jane', 'age' => 25, 'email' => 'jane@example.com']
- * ```
- *
- * ### Comparing DTOs:
- * ```php
- * $dto1 = new UserDto(['name' => 'John', 'age' => 25]);
- * $dto2 = new UserDto(['name' => 'John', 'age' => 30]);
- * $diff = $dto1->diff($dto2);
- * // Result: ['age' => ['old' => 25, 'new' => 30]]
- * ```
- *
- * ### Serialization:
- * ```php
- * $dto = new UserDto([
- * 'name' => 'John',
- * 'createdAt' => new DateTime('2023-01-01'),
- * 'addresses' => [
- * new AddressDto(['city' => 'New York']),
- * new AddressDto(['city' => 'London']),
- * ],
- * ]);
- *
- * $array = $dto->toArray();
- * $json = $dto->toJson(JSON_PRETTY_PRINT);
- * ```
+ * @phpstan-consistent-constructor
+ * @implements Arrayable<string, mixed>
  */
 abstract class BaseDto implements Arrayable, Jsonable
 {
@@ -101,6 +37,7 @@ abstract class BaseDto implements Arrayable, Jsonable
     private Serializer $serializer;
 
     /**
+     * @param  array<string, mixed>|string|null  $data
      * @param  bool  $lazyValidation  by default validation running on setting value
      */
     public function __construct(
@@ -115,6 +52,7 @@ abstract class BaseDto implements Arrayable, Jsonable
         $this->fill($data);
     }
 
+    /** @param array<int, mixed> $arguments */
     public function __call(string $method, array $arguments): mixed
     {
         $prefix = substr($method, 0, 3);
@@ -128,6 +66,7 @@ abstract class BaseDto implements Arrayable, Jsonable
         };
     }
 
+    /** @return array<string, mixed> */
     public function toArray(bool $clearing = false, bool $masking = false): array
     {
         return $this->serializer->toArray($this, $clearing, $masking);
@@ -138,22 +77,13 @@ abstract class BaseDto implements Arrayable, Jsonable
         return $this->serializer->toJson($this, $options, $clearing, $masking);
     }
 
-    /**
-     * Creates a new instance of the DTO with the same data
-     *
-     * @return T
-     */
+    /** @return static */
     public function clone(): static
     {
         return new static($this->toArray());
     }
 
-    /**
-     * Merges current DTO with another one
-     *
-     * @param  T  $dto  DTO to merge with
-     * @return T New DTO instance with merged data
-     */
+    /** @return static */
     public function merge(self $dto): static
     {
         $new = $this->clone();
@@ -170,12 +100,7 @@ abstract class BaseDto implements Arrayable, Jsonable
         return $new;
     }
 
-    /**
-     * Compares current DTO with another one and returns differences
-     *
-     * @param  T  $dto  DTO to compare with
-     * @return array<string, array{old: mixed, new: mixed}>
-     */
+    /** @return array<string, array{old: mixed, new: mixed}> */
     public function diff(self $dto): array
     {
         $diff = [];
@@ -191,9 +116,6 @@ abstract class BaseDto implements Arrayable, Jsonable
         return $diff;
     }
 
-    /**
-     * Validates all properties of the DTO
-     */
     public function passes(): bool
     {
         $this->validator->resetErrors();
@@ -218,20 +140,15 @@ abstract class BaseDto implements Arrayable, Jsonable
         return ! $this->validator->hasErrors();
     }
 
-    /**
-     * Returns validation errors
-     */
+    /** @return array<string, mixed> */
     public function getValidationErrors(): array
     {
         return $this->validator->getErrors();
     }
 
     /**
-     * Returns validation errors for a specific property
-     *
-     * @param  string  $propertyName  Property name (supports both camelCase and snake_case)
-     * @return array Validation errors for the property, empty array if property has no errors
-     * @throws InvalidArgumentException If property does not exist
+     * @return list<Violation>
+     * @throws InvalidArgumentException
      */
     public function getPropertyValidationErrors(string $propertyName): array
     {
@@ -240,20 +157,12 @@ abstract class BaseDto implements Arrayable, Jsonable
         );
     }
 
-    /**
-     * Determine if there are errors for a specific property
-     *
-     * @param  string  $propertyName  Property name (supports both camelCase and snake_case)
-     * @throws InvalidArgumentException If property does not exist
-     */
+    /** @throws InvalidArgumentException */
     public function hasPropertyValidationErrors(string $propertyName): bool
     {
         return ! empty($this->getPropertyValidationErrors($propertyName));
     }
 
-    /**
-     * Generate defaults if supporting & politics allowed
-     */
     public function generateDefaultsIfAllowed(): void
     {
         foreach ($this->metadata->defaultValueGenerators as $property => $generator) {
@@ -263,7 +172,8 @@ abstract class BaseDto implements Arrayable, Jsonable
         }
     }
 
-    public function fill(array|string|null $data): self
+    /** @param array<string, mixed>|string|null $data */
+    public function fill(array|string|null $data): static
     {
         if (! empty($data)) {
             if (is_string($data)) {
@@ -291,7 +201,7 @@ abstract class BaseDto implements Arrayable, Jsonable
         return $this;
     }
 
-    protected function set(string $property, mixed $value): self
+    protected function set(string $property, mixed $value): static
     {
         $property = $this->resolvePropertyName($property);
 
@@ -331,6 +241,7 @@ abstract class BaseDto implements Arrayable, Jsonable
         }
     }
 
+    /** @param array<int|string, mixed> $items */
     private function validateArrayProperty(string $propertyName, array $items): void
     {
         foreach ($items as $index => $item) {
@@ -347,18 +258,13 @@ abstract class BaseDto implements Arrayable, Jsonable
         return is_subclass_of($typeName, self::class);
     }
 
+    /** @return array<string, mixed> */
     private function getProperties(): array
     {
         return array_intersect_key(get_object_vars($this), $this->metadata->propertyTypes);
     }
 
-    /**
-     * Resolves property name trying different naming styles
-     *
-     * @param  string  $property  Original property name
-     * @return string Resolved property name
-     * @throws UnknownPropertyException If property does not exist
-     */
+    /** @throws UnknownPropertyException */
     private function resolvePropertyName(string $property): string
     {
         if (property_exists($this, $property)) {

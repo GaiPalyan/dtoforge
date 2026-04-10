@@ -13,9 +13,11 @@ use Ru\One2Work\Php\DtoValidator\BaseDto;
 use Ru\One2Work\Php\DtoValidator\Contracts\ClassValidatorInterface;
 use Ru\One2Work\Php\DtoValidator\Contracts\PropertyValidatorInterface;
 use Ru\One2Work\Php\DtoValidator\Exceptions\DtoValidationException;
+use Ru\One2Work\Php\DtoValidator\Support\Violation;
 
 final class Validator
 {
+    /** @var array<string, mixed> */
     private array $errors = [];
 
     public function __construct(private readonly Metadata $metadata) {}
@@ -68,11 +70,13 @@ final class Validator
         }
     }
 
+    /** @param array<string, mixed> $errors */
     public function addErrors(string $property, array $errors): void
     {
         $this->errors[$property] = $errors;
     }
 
+    /** @param array<string, mixed> $errors */
     public function addIndexedErrors(string $property, int|string $index, array $errors): void
     {
         $this->errors[$property][$index] = $errors;
@@ -83,11 +87,13 @@ final class Validator
         $this->errors = [];
     }
 
+    /** @return array<string, mixed> */
     public function getErrors(): array
     {
         return $this->errors;
     }
 
+    /** @return list<Violation> */
     public function getPropertyErrors(string $property): array
     {
         return $this->errors[$property] ?? [];

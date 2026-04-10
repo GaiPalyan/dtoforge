@@ -18,8 +18,17 @@ use Ru\One2Work\Php\DtoValidator\Contracts\PropertyValidatorInterface;
 
 final class Metadata
 {
+    /** @var array<string, self> */
     private static array $cache = [];
 
+    /**
+     * @param array<string, string> $propertyTypes
+     * @param array<string, list<PropertyValidatorInterface>> $propertyValidator
+     * @param array<string, PropertyMaskInterface> $propertyMask
+     * @param array<string, DefaultValueGeneratorInterface> $defaultValueGenerators
+     * @param array<string, string|null> $arrayItemTypes
+     * @param list<ClassValidatorInterface> $classValidator
+     */
     private function __construct(
         public readonly array $propertyTypes,
         public readonly array $propertyValidator,

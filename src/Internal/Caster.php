@@ -76,6 +76,7 @@ final class Caster
         throw new InvalidArgumentException("Cannot cast value to {$className}");
     }
 
+    /** @return list<object> */
     private function castArrayOfObjects(mixed $value, string $className, bool $lazyValidation): array
     {
         if (! is_array($value)) {

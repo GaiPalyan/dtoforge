@@ -32,8 +32,8 @@ pest()->extend(TestCase::class)->in('Unit');
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
+expect()->extend('toBeOne', function (): void {
+    $this->toBe(1); // @phpstan-ignore variable.undefined
 });
 
 /*
@@ -47,7 +47,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function something(): void
 {
     // ..
 }
