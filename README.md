@@ -1,6 +1,7 @@
 # PHP DTO Package
 
 [![Tests](https://github.com/GaiPalyan/dtoforge/actions/workflows/tests.yml/badge.svg)](https://github.com/GaiPalyan/dtoforge/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/GaiPalyan/dtoforge/branch/main/graph/badge.svg)](https://codecov.io/gh/GaiPalyan/dtoforge)
 [![Latest Stable Version](https://poser.pugx.org/gpalyan/dto-forge/v/stable)](https://packagist.org/packages/gpalyan/dto-forge)
 [![License](https://poser.pugx.org/gpalyan/dto-forge/license)](https://packagist.org/packages/gpalyan/dto-forge)
 
