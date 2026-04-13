@@ -20,7 +20,7 @@ build:
 install:
 	docker run --rm -it \
 	  -v $(PWD):/app \
-	  $(IMAGE) composer dump-autoload
+	  $(IMAGE) composer install
 
 update:
 	docker run --rm -it \
