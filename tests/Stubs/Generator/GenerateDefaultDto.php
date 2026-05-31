@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Stubs;
+namespace Tests\Stubs\Generator;
 
 use Forge\Dto\BaseDto;
 

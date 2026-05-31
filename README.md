@@ -7,6 +7,31 @@
 
 A flexible and powerful Data Transfer Object (DTO) library for PHP that provides validation, type casting, default value generation, and convenient data manipulation methods.
 
+## Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Basic Usage](#basic-usage)
+  - [Creating DTOs](#creating-dtos)
+  - [Magic Methods](#magic-methods)
+  - [Filling Data](#filling-data)
+  - [Merging DTOs](#merging-dtos)
+  - [Comparing DTOs](#comparing-dtos)
+  - [Cloning DTOs](#cloning-dtos)
+  - [Serialization](#serialization)
+- [Nested DTOs](#nested-dtos)
+- [Validation](#validation)
+  - [Using Built-in Validators](#using-built-in-validators)
+  - [Validation Errors](#validation-errors)
+  - [Creating Custom Validators](#creating-custom-validators)
+- [Default Value Generation](#default-value-generation)
+  - [Creating Custom Generators](#creating-custom-generators)
+- [Type Casting](#type-casting)
+  - [Casting Collections](#casting-collections)
+- [Masking](#masking)
+- [API Reference](#api-reference)
+- [Contributing](#contributing)
+
 ## Features
 
 - **Easy DTO Creation** - Create DTOs from arrays, JSON, or use fluent setters
@@ -16,6 +41,7 @@ A flexible and powerful Data Transfer Object (DTO) library for PHP that provides
 - **Nested DTOs** - Full support for nested DTO structures
 - **Default Values** - Generate default values automatically when needed
 - **Serialization** - Convert to arrays and JSON easily
+- **Masking** - Redact sensitive fields on serialization without mutating the DTO
 
 ## Installation
 
@@ -338,6 +364,76 @@ final class UserDto extends BaseDto
 $dto = new UserDto()->setAge(25); // passing int
 echo gettype($dto->getAge()); // "string" — automatically cast to match property type
 ```
+
+### Casting Collections
+
+An `array` property does not know what its items are. To cast each element into a DTO,
+declare the item type explicitly with the `#[CastEachTo]` attribute:
+
+```php
+use Forge\Dto\Support\BaseDto;
+use Forge\Dto\Support\Casting\CastEachTo;
+
+final class OrderDto extends BaseDto
+{
+    #[CastEachTo(LineItemDto::class)]
+    public ?array $items = null;
+}
+
+$order = new OrderDto([
+    'items' => [
+        ['sku' => 'A-1', 'qty' => 2],
+        ['sku' => 'B-7', 'qty' => 1],
+    ],
+]);
+
+$order->items[0]; // LineItemDto instance
+```
+
+Each raw array (or JSON object) is constructed into the given class; values that are already
+instances of that class are passed through unchanged. Casting is **opt-in via this attribute only** —
+docblock `@var Item[]` annotations are treated as documentation and never drive casting.
+
+> **Note:** `#[CastEachTo]` and `#[ArrayOf]` are not meant to be combined on the same property. `CastEachTo` *constructs* items from raw data; `#[ArrayOf]` *validates* a collection of already-built (e.g. polymorphic) objects without constructing them. In strict mode `#[ArrayOf]` runs before casting and will reject raw input — pick the one that matches your intent.
+
+## Masking
+
+Masking redacts property values **on serialization only** — the stored DTO value is never changed.
+It is opt-in per call via the `masking` flag on `toArray()` / `toJson()`.
+
+A mask is a PHP attribute implementing `PropertyMaskInterface`:
+
+```php
+use Attribute;
+use Forge\Dto\Contracts\PropertyMaskInterface;
+
+#[Attribute(Attribute::TARGET_PROPERTY)]
+readonly class MaskCard implements PropertyMaskInterface
+{
+    public function apply(string $value): string
+    {
+        return str_repeat('*', max(0, strlen($value) - 4)) . substr($value, -4);
+    }
+}
+
+final class PaymentDto extends BaseDto
+{
+    #[MaskCard]
+    public ?string $cardNumber = null;
+}
+
+$dto = new PaymentDto(['cardNumber' => '4111111111111111']);
+
+$dto->toArray();              // ['cardNumber' => '4111111111111111']
+$dto->toArray(masking: true); // ['cardNumber' => '************1111']
+echo $dto->cardNumber;        // '4111111111111111' — untouched
+```
+
+**Requirements / behavior:**
+- Must be a PHP 8 Attribute with `Attribute::TARGET_PROPERTY` implementing `PropertyMaskInterface`.
+- `apply(string $value): string` is called only for **string** values, and only when `masking` is enabled.
+- One mask per property — the first attribute wins.
+- Nested DTOs are masked recursively; masking never mutates the DTO, only its serialized output.
 
 ## API Reference
 
