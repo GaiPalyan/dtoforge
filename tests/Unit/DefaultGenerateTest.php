@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Tests\Stubs\GenerateDefaultDto;
+use Tests\Stubs\Generator\GenerateDefaultDto;
 
 describe('DtoBuilding', function () {
     it('generate default if value is null and support is true', function () {

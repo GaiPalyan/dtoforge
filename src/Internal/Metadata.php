@@ -10,6 +10,7 @@ use Forge\Dto\Contracts\ClassValidatorInterface;
 use Forge\Dto\Contracts\DefaultValueGeneratorInterface;
 use Forge\Dto\Contracts\PropertyMaskInterface;
 use Forge\Dto\Contracts\PropertyValidatorInterface;
+use Forge\Dto\Support\Casting\CastEachTo;
 
 final class Metadata
 {
@@ -62,6 +63,7 @@ final class Metadata
 
             $name = $property->getName();
             $typeName = $type->getName();
+            $itemType = null;
 
             $propertyTypes[$name] = $typeName;
 
@@ -71,18 +73,24 @@ final class Metadata
                 if ($instance instanceof PropertyValidatorInterface) {
                     $propertyValidator[$name][] = $instance;
                 }
+
                 if ($instance instanceof PropertyMaskInterface && ! isset($propertyMask[$name])) {
                     $propertyMask[$name] = $instance;
                 }
+
                 if ($instance instanceof DefaultValueGeneratorInterface && ! isset($defaultValueGenerators[$name])) {
                     $defaultValueGenerators[$name] = $instance;
+                }
+
+                if ($instance instanceof CastEachTo && $itemType === null) {
+                    $itemType = $instance->type;
                 }
             }
 
             if ($typeName === 'array') {
-                $arrayItemTypes[$name] = preg_match('/@var\s+([^\s]+)\[\]/', (string) $property->getDocComment(), $matches)
-                    ? $matches[1]
-                    : null;
+                // Array item casting is strictly opt-in via #[CastEachTo]. Docblocks
+                // are documentation only and never drive casting.
+                $arrayItemTypes[$name] = $itemType;
             }
         }
 
