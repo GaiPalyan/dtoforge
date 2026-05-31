@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Forge\Dto\Support\Casting\CastEachTo;
 use Tests\Stubs\Collection\CollectionDto;
 use Tests\Stubs\Collection\CollectionItemDto;
 
@@ -20,5 +21,11 @@ describe('ArrayItemCast', function () {
             ->and($dto->items[0]->label)->toBe('first')
             ->and($dto->items[1])->toBeInstanceOf(CollectionItemDto::class)
             ->and($dto->items[1]->label)->toBe('second');
+    });
+
+    it('rejects a cast target class that does not exist', function () {
+        // @phpstan-ignore argument.type (deliberately passing a non-existent class)
+        expect(fn () => new CastEachTo('Tests\Stubs\Collection\NoSuchItem'))
+            ->toThrow(InvalidArgumentException::class);
     });
 })->group('Build');

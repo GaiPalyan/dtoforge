@@ -9,7 +9,7 @@ use Forge\Dto\Support\Casting\CastEachTo;
 
 /**
  * @method CollectionItemDto[]|null getItems()
- * @method static setItems(?array $items)
+ * @method static setItems(CollectionItemDto[]|null $items)
  */
 final class CollectionDto extends BaseDto
 {
